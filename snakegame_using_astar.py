@@ -1,14 +1,14 @@
 """
-Snake Eater with A* AI
+Snake Game with A* AI
 """
 
 import pygame, sys, time, random, heapq
-difficulty = 1000
+difficulty = 20
 
 # Setting
-frame_size_x = 1000
-frame_size_y = 1000
-cell_size = 200
+frame_size_x = 600
+frame_size_y = 400
+cell_size = 20
 cols = frame_size_x // cell_size
 rows = frame_size_y // cell_size
 
@@ -21,7 +21,7 @@ else:
     print('[+] Game successfully initialised')
 
 game_window = pygame.display.set_mode((frame_size_x, frame_size_y))
-pygame.display.set_caption('Snake Eater A* AI')
+pygame.display.set_caption('Snake Game With A* AI')
 fps_controller = pygame.time.Clock()
 
 # Colors
@@ -87,7 +87,8 @@ def show_score(choice, color, font, size):
     score_surface = score_font.render('Score : ' + str(score), True, color)
     score_rect = score_surface.get_rect()
     if choice == 1:
-        score_rect.midtop = (frame_size_x/10, 15)
+        # score_rect.midtop = (frame_size_x/10, 15)
+        score_rect.topleft = (10,10)
     else:
         score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
     game_window.blit(score_surface, score_rect)
