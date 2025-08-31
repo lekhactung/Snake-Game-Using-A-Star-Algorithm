@@ -46,14 +46,13 @@ A* đảm bảo tìm được đường ngắn nhất (nếu tồn tại).
 
 ---
 ## 📷 Minh họa
-Ví dụ: rắn tự động di chuyển tới thức ăn bằng đường màu xanh lá.
 ![Run Demo](./assets/SnakeGameDemo.gif)
 ---
-## Nguồn tham khảo
-- Dự án này được xây dựng dựa trên Snake Game từ Project của rajatdiptabiswas 
+## 🔗 Nguồn tham khảo
+- Dự án này được xây dựng dựa trên Snake Game từ Project của **rajatdiptabiswas** 
 - Link repo: https://github.com/rajatdiptabiswas/snake-pygame/tree/master
 ---
-## Thành viên
+## 🧑‍🤝 Thành viên
 - Lê Khắc Tùng
 - Dương Ngọc Hoàng Huy
 - Trần Minh Triết
