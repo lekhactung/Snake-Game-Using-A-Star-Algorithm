@@ -46,13 +46,13 @@ A* đảm bảo tìm được đường ngắn nhất (nếu tồn tại).
 
 ---
 ## 📷 Minh họa
-![Run Demo](./assets/SnakeGameDemo.gif)
+![Demo](./assets/snakegame_demo_run.gif)
 ---
 ## 🔗 Nguồn tham khảo
 - Dự án này được xây dựng dựa trên Snake Game từ Project của **rajatdiptabiswas** 
 - Link repo: https://github.com/rajatdiptabiswas/snake-pygame/tree/master
 ---
-## 🧑‍🤝 Thành viên
+## ‍🤝 Thành viên
 - Lê Khắc Tùng
 - Dương Ngọc Hoàng Huy
 - Trần Minh Triết
