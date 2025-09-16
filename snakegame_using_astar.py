@@ -1,18 +1,13 @@
-"""
-Snake Game with A* AI
-"""
 
 import pygame, sys, time, random, heapq
-difficulty = 20
+difficulty = 30
 
-# Setting
 frame_size_x = 600
 frame_size_y = 400
 cell_size = 20
 cols = frame_size_x // cell_size
 rows = frame_size_y // cell_size
 
-# Init
 check_errors = pygame.init()
 if check_errors[1] > 0:
     print(f'[!] Had {check_errors[1]} errors when initialising game, exiting...')
@@ -24,15 +19,12 @@ game_window = pygame.display.set_mode((frame_size_x, frame_size_y))
 pygame.display.set_caption('Snake Game With A* AI')
 fps_controller = pygame.time.Clock()
 
-# Colors
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
 red = pygame.Color(255, 0, 0)
 green = pygame.Color(0, 255, 0)
 
-# Snake & Food      
 snake = [(0, 0)]
-random.seed(0)
 food = (random.randint(0, cols - 1), random.randint(0, rows - 1))
 score = 0
 # A* Functions
@@ -58,15 +50,8 @@ def astar(start, goal, obstacles):
             continue
         visited.add(current)
         path = path + [current]
-        # with open("astar_log.txt", "a", encoding="utf-8") as f:
-        #     f.write(f"\n--- A* Step ---\n")
-        #     f.write(f"Current: {current}, Cost={cost}\n")
-        #     f.write(f"Food: {food}\n")
-        #     f.write(f"Open set: {open_set}\n")
-        #     f.write(f"Visited: {visited}\n")
-        #     f.write(f"Path so far: {path}\n")
         if current == goal:
-            return path[1:]  # exclude current
+            return path[1:]
 
         for neighbor in get_neighbors(current):
             if neighbor in visited or neighbor in obstacles:
@@ -76,7 +61,9 @@ def astar(start, goal, obstacles):
 
 def draw():
     game_window.fill(black)
-    for x, y in snake:
+    head_x, head_y = snake[0]
+    pygame.draw.rect(game_window, red,(head_x * cell_size, head_y * cell_size, cell_size, cell_size))
+    for x, y in snake[1:]:
         pygame.draw.rect(game_window, green, (x * cell_size, y * cell_size, cell_size, cell_size))
     pygame.draw.rect(game_window, white, (food[0] * cell_size, food[1] * cell_size, cell_size, cell_size))
     show_score(1, white, 'consolas', 20)
@@ -87,7 +74,7 @@ def show_score(choice, color, font, size):
     score_surface = score_font.render('Score : ' + str(score), True, color)
     score_rect = score_surface.get_rect()
     if choice == 1:
-        score_rect.topleft = (10,10)
+        score_rect.midtop = (frame_size_x/10, 15)
     else:
         score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
     game_window.blit(score_surface, score_rect)
@@ -118,12 +105,19 @@ while True:
     path = astar(head, food, snake[1:])
 
     if not path:
-        game_over()
+        tail = snake[-1]
+        path = astar(head, tail, snake[1:-1])
+        if not path:
+            safe_moves = [n for n in get_neighbors(head) if n not in snake]
+            if safe_moves:
+                next_cell = random.choice(safe_moves)
+                path = [next_cell]
+            else:
+                game_over()
 
     next_cell = path[0]
     new_head = next_cell
 
-    # Collision check
     if new_head in snake or not (0 <= new_head[0] < cols) or not (0 <= new_head[1] < rows):
         game_over()
 
